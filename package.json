@@ -1,12 +1,13 @@
 {
-  "name": "graphql-framework",
+  "name": "@voizhungary/graphql-framework",
   "description": "",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
