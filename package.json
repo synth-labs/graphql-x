@@ -2,8 +2,8 @@
   "name": "@voizhungary/graphql-framework",
   "description": "",
   "version": "1.0.2",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "mocha --exit",
