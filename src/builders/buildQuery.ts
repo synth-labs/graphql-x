@@ -17,7 +17,7 @@ const connection = db.get();
 
 function buildQuery(resolver: Class): ResolverTypeMap {
     const queries: ResolverMap = <ResolverMap>Reflect.getMetadata('graphQLQueryTypes', resolver);
-    const args: ArgMap = <ArgMap>Reflect.getMetadata('graphQLArgs', resolver)
+    const args: ArgMap = <ArgMap>Reflect.getMetadata('graphQLArgs', resolver);
     const wheres: FilterMap = <FilterMap>Reflect.getMetadata('graphQLWheres', resolver);
 
     const resolvers: ResolverTypeMap = {};
@@ -27,7 +27,6 @@ function buildQuery(resolver: Class): ResolverTypeMap {
 
         const res: ResolverType = {
             type: <GraphQLObjectType>value.type(),
-            args: args[key],
             resolve: (_parent: any, _args: any, _context: any, resolveInfo: any) => joinMonster(
                 resolveInfo,
                 {},
@@ -44,6 +43,10 @@ function buildQuery(resolver: Class): ResolverTypeMap {
                     where: buildWhere(wheres[key])
                 }
             }
+        }
+
+        if (args !== undefined && key in args) {
+            res.args = args[key];
         }
 
         resolvers[key] = res;
