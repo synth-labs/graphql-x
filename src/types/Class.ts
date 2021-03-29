@@ -1,6 +1,6 @@
 interface Class {
     constructor: Function;
-    name: string;
+    name?: string;
 }
 
 export default Class;
