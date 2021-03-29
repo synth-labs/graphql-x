@@ -21,5 +21,9 @@ module.exports = {
         exceptAfterSingleLine: true,
       },
     ],
+    "semi": [
+      "error",
+      "always",
+    ],
   },
 };
