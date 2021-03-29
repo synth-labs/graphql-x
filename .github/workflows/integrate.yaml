@@ -1,0 +1,41 @@
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+
+jobs:
+  integrate:
+    runs-on: "ubuntu-18.04"
+    steps:
+      - name: "Display Node.js version"
+        run: |
+          node --version
+          npm version
+
+      - name: "Checkout code"
+        uses: "actions/checkout@v2"
+
+      - name: "Determine npm cache directory"
+        id: "npm-cache"
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: "${{ steps.npm-cache.outputs.dir }}"
+          key: "${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}"
+          restore-keys: "${{ runner.os }}-npm-"
+
+      - name: "Install dependencies"
+        run: "npm ci"
+
+      - name: "Run tests"
+        run: "npm test"
+
+      - name: "Run eslint"
+        run: "npm run lint"
+
+#      - name: "Run eclint"
+#        run: "npm run eclint"
