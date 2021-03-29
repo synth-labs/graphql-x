@@ -1,12 +1,13 @@
 import 'reflect-metadata';
 import { GraphQLInputObjectType, GraphQLNonNull, GraphQLInputType } from 'graphql';
 
+import Class from '../types/Class';
 import FieldMap from '../types/FieldMap';
 import FieldInputMap from '../types/FieldInputMap';
 import DescriptionMap from '../types/DescriptionMap';
 
 
-function buildInput(model: ObjectConstructor): GraphQLInputObjectType {
+function buildInput(model: Class): GraphQLInputObjectType {
     const fields: FieldMap = <FieldMap>Reflect.getMetadata('graphQLFields', model);
     const descriptions: DescriptionMap = <DescriptionMap>Reflect.getMetadata('graphQLDescriptions', model);
 

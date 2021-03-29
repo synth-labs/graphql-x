@@ -1,6 +1,7 @@
 import { GraphQLObjectType } from "graphql";
 import joinMonster from "join-monster";
 
+import Class from '../types/Class';
 import ResolverInfo from '../types/ResolverInfo';
 import ResolverType from '../types/ResolverType';
 import ResolverTypeMap from '../types/ResolverTypeMap';
@@ -14,7 +15,7 @@ import db from '../db';
 db.init();
 const connection = db.get();
 
-function buildQuery(resolver: any): ResolverTypeMap {
+function buildQuery(resolver: Class): ResolverTypeMap {
     const queries: ResolverMap = <ResolverMap>Reflect.getMetadata('graphQLQueryTypes', resolver);
     const args: ArgMap = <ArgMap>Reflect.getMetadata('graphQLArgs', resolver)
     const wheres: FilterMap = <FilterMap>Reflect.getMetadata('graphQLWheres', resolver);

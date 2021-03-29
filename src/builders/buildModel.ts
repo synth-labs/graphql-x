@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { GraphQLObjectType, GraphQLNonNull, GraphQLOutputType } from 'graphql';
 
+import Class from '../types/Class';
 import FieldMap from '../types/FieldMap';
 import FieldModelMap from '../types/FieldModelMap';
 import DescriptionMap from '../types/DescriptionMap';
@@ -16,7 +17,8 @@ import JunctionMap from '../types/JunctionMap';
 import JoinMonsterFieldInfo from '../types/JoinMonsterFieldInfo';
 import JoinMonsterFieldMap from '../types/JoinMonsterFieldMap';
 
-function buildModel(model: ObjectConstructor): GraphQLObjectType {
+
+function buildModel(model: Class): GraphQLObjectType {
     const fields: FieldMap = <FieldMap>Reflect.getMetadata('graphQLFields', model);
     const descriptions: DescriptionMap = <DescriptionMap>Reflect.getMetadata('graphQLDescriptions', model);
 
