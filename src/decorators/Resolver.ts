@@ -1,7 +1,7 @@
 import ResolverGroup from '../types/ResolverGroup';
 
 function Resolver(resolverGroup: ResolverGroup) {
-    return (target: ObjectConstructor) => {
+    return (target: Object) => {
         Reflect.defineMetadata('graphQLResolverGroup', resolverGroup, target.constructor);
     }
 }

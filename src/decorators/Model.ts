@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import TableInfo from '../types/TableInfo';
 
 function Model(databaseName: string, tableName: string, uniqueKey = 'id') {
-    return (target: any) => {
+    return (target: Object) => {
         const data: TableInfo = {
             sqlTable: `\`${databaseName}\`.\`${tableName}\``,
             uniqueKey,

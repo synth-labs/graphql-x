@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import JoinForwardMap from '../types/JoinForwardMap';
 
 function JoinForward(referencingField: string) {
-    return (target: ObjectConstructor, key: string) => {
+    return (target: Object, key: string) => {
         const fields: JoinForwardMap = <JoinForwardMap>Reflect.getMetadata('graphQLJoinForwards', target.constructor) || {};
 
         fields[key] = referencingField;

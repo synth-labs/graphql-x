@@ -5,7 +5,7 @@ import TypeFunction from '../types/TypeFunction';
 import ArgMap from '../types/ArgMap';
 
 function Arg(typeFunction: TypeFunction, argName: string, description?: string, optional = false) {
-    return (target: ObjectConstructor, key: string) => {
+    return (target: Object, key: string) => {
         const args: ArgMap = <ArgMap>Reflect.getMetadata('graphQLArgs', target.constructor) || {};
 
         if (args[key]) {

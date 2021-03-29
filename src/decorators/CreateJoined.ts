@@ -1,7 +1,7 @@
 import CreateJoinedMap from '../types/CreateJoinedMap';
 
 function CreateJoined(junctionTable: string, referencedField: string) {
-    return (target: ObjectConstructor, key: string) => {
+    return (target: Object, key: string) => {
         const fields: CreateJoinedMap = <CreateJoinedMap>Reflect.getMetadata('graphQLMutationsJoin', target.constructor) || {};
 
         fields[key] = {

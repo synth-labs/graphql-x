@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import JunctionMap from '../types/JunctionMap';
 
 function Junction(junctionTable: string, firstTableField: string, secondTableField: string) {
-    return (target: ObjectConstructor, key: string) => {
+    return (target: Object, key: string) => {
         const fields: JunctionMap = <JunctionMap>Reflect.getMetadata('graphQLJunctions', target.constructor) || {};
 
         fields[key] = {
