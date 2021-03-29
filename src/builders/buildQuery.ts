@@ -9,7 +9,7 @@ import ResolverMap from '../types/ResolverMap';
 import ArgMap from '../types/ArgMap';
 import FilterMap from '../types/FilterMap';
 
-import buildWhere from './ buildWhere';
+import buildWhere from './buildWhere';
 import db from '../db';
 
 db.init();
