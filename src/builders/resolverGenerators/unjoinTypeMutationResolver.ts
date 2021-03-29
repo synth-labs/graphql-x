@@ -69,7 +69,7 @@ function unjoinTypeMutationResolver(tableName: string, queryName: string, key: s
         }
 
         return null;
-    }
+    };
 }
 
 export default unjoinTypeMutationResolver;

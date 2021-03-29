@@ -15,7 +15,7 @@ function Filter(filter: FilterInfo) {
         }
 
         Reflect.defineMetadata('graphQLWheres', wheres, target.constructor);
-    }
+    };
 }
 
 export default Filter;

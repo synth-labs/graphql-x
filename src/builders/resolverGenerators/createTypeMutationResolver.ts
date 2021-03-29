@@ -44,7 +44,7 @@ function createTypeMutationResolver(tableName: string, queryName: string, mutati
             const createJoined: CreateJoinedMap = <CreateJoinedMap>Reflect.getMetadata('graphQLMutationsJoin', obj) || {};
 
             if (argList.length === 2 && (!createJoined[mutationName].junctionTable || !createJoined[mutationName].referencedField)) {
-                throw new Error('Missing `@CreateJoined` decorator.')
+                throw new Error('Missing `@CreateJoined` decorator.');
             }
 
             const { junctionTable } = createJoined[mutationName];
@@ -52,14 +52,14 @@ function createTypeMutationResolver(tableName: string, queryName: string, mutati
 
             const joins = joinArg.map((arg: number): { [keys: string]: number } => ({
                 [referencedField]: arg
-            }))
+            }));
 
             data = {
                 ...dataArg,
                 [junctionTable]: {
                     create: joins
                 }
-            }
+            };
         } else {
             data = dataArg;
         }
@@ -82,7 +82,7 @@ function createTypeMutationResolver(tableName: string, queryName: string, mutati
         }
 
         return null;
-    }
+    };
 }
 
 export default createTypeMutationResolver;
