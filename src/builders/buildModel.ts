@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { GraphQLObjectType, GraphQLNonNull, GraphQLOutputType } from 'graphql';
 
+import Class from '../types/Class';
 import FieldMap from '../types/FieldMap';
 import FieldModelMap from '../types/FieldModelMap';
 import DescriptionMap from '../types/DescriptionMap';
@@ -16,7 +17,8 @@ import JunctionMap from '../types/JunctionMap';
 import JoinMonsterFieldInfo from '../types/JoinMonsterFieldInfo';
 import JoinMonsterFieldMap from '../types/JoinMonsterFieldMap';
 
-function buildModel(model: ObjectConstructor): GraphQLObjectType {
+
+function buildModel(model: Class): GraphQLObjectType {
     const fields: FieldMap = <FieldMap>Reflect.getMetadata('graphQLFields', model);
     const descriptions: DescriptionMap = <DescriptionMap>Reflect.getMetadata('graphQLDescriptions', model);
 
@@ -26,11 +28,16 @@ function buildModel(model: ObjectConstructor): GraphQLObjectType {
     const joinBackwards: JoinBackwardMap = <JoinBackwardMap>Reflect.getMetadata('graphQLJoinBackwards', model) || {};
     const junctions: JunctionMap = <JunctionMap>Reflect.getMetadata('graphQLJunctions', model) || {};
 
+    if (!('name' in model)) {
+        throw new Error('The name is missing from the model!');
+    }
+    const name: string = <string>model.name;
+
     // removing _ from the beginning
-    if (model.name.length < 2 || model.name[0] !== '_') {
+    if (name.length < 2 || name[0] !== '_') {
         throw new Error('The name of the model class must be in the form of `_SomeModel`.');
     }
-    const modelName: string = model.name.substr(1, model.name.length - 1);
+    const modelName: string = name.substr(1, name.length - 1);
 
     const newFields: JoinMonsterFieldMap = {};
 

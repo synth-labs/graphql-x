@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { GraphQLObjectType } from 'graphql';
 import { PrismaClient } from '@prisma/client';
 
+import Class from '../types/Class';
 import ArgMap from '../types/ArgMap';
 import MutationInfo from '../types/MutationInfo';
 import MutationMap from '../types/MutationMap';
@@ -16,7 +17,7 @@ import joinTypeMutationResolver from './resolverGenerators/joinTypeMutationResol
 import unjoinTypeMutationResolver from './resolverGenerators/unjoinTypeMutationResolver';
 
 
-function buildMutation(mutation: any, queryRoot: GraphQLObjectType, prisma: PrismaClient): ResolverTypeMap {
+function buildMutation(mutation: Class, queryRoot: GraphQLObjectType, prisma: PrismaClient): ResolverTypeMap {
     const mutations: MutationMap = <MutationMap>Reflect.getMetadata('graphQLMutations', mutation);
 
     const resolvers: ResolverTypeMap = {};

@@ -1,10 +1,11 @@
 import 'reflect-metadata';
 
+import Class from '../types/Class';
 import JoinMatchingMap from '../types/JoinMatchingMap';
 
 
 function Join(field1: string, argument1: string, field2: string, argument2: string) {
-    return (target: ObjectConstructor, key: string) => {
+    return (target: Class, key: string) => {
         const fields: JoinMatchingMap = <JoinMatchingMap>Reflect.getMetadata('graphQLJoinData', target.constructor) || {};
 
         fields[key] = {

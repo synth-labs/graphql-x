@@ -1,11 +1,12 @@
 import 'reflect-metadata';
 import { GraphQLNonNull } from 'graphql';
 
+import Class from '../types/Class';
 import TypeFunction from '../types/TypeFunction';
 import ArgMap from '../types/ArgMap';
 
 function Arg(typeFunction: TypeFunction, argName: string, description?: string, optional = false) {
-    return (target: ObjectConstructor, key: string) => {
+    return (target: Class, key: string) => {
         const args: ArgMap = <ArgMap>Reflect.getMetadata('graphQLArgs', target.constructor) || {};
 
         if (args[key]) {
