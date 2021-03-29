@@ -37,7 +37,7 @@ function deleteTypeMutationResolver(tableName: string, prisma: PrismaClient) {
         }
 
         return <number>args.id;
-    }
+    };
 }
 
 export default deleteTypeMutationResolver;

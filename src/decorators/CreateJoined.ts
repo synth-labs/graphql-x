@@ -13,7 +13,7 @@ function CreateJoined(junctionTable: string, referencedField: string) {
         };
 
         Reflect.defineMetadata('graphQLMutationsJoin', fields, target.constructor);
-    }
+    };
 }
 
 export default CreateJoined;

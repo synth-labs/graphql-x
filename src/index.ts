@@ -56,4 +56,4 @@ export {
     FilterInfo,
     MutationType,
     ResolverGroup
-}
+};

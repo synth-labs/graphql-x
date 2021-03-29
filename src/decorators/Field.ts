@@ -19,7 +19,7 @@ function Field(typeFunction: TypeFunction, optional = false) {
         }
 
         Reflect.defineMetadata('graphQLFields', fields, target.constructor);
-    }
+    };
 }
 
 export default Field;

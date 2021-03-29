@@ -47,7 +47,7 @@ function buildModel(model: Class): GraphQLObjectType {
         const newField: JoinMonsterFieldInfo = {
             type: value.type,
             optional: value.optional
-        }
+        };
 
         if (descriptions[key]) {
             newField.description = descriptions[key];
@@ -58,7 +58,7 @@ function buildModel(model: Class): GraphQLObjectType {
                 joinMonster: {
                     sqlColumn: columns[key]
                 }
-            }
+            };
         }
 
         if (joinForwards[key]) {
@@ -71,7 +71,7 @@ function buildModel(model: Class): GraphQLObjectType {
                     joinMonster: {
                         sqlJoin: joinFunction
                     }
-                }
+                };
             }
         }
 
@@ -85,16 +85,16 @@ function buildModel(model: Class): GraphQLObjectType {
                     joinMonster: {
                         sqlJoin: joinFunction
                     }
-                }
+                };
             }
         }
 
         if (junctions[key]) {
             const junctionData = junctions[key];
 
-            const firstJunctionFunction: JoinFunction = (mainTable: string, junctionTable: string): string => `${mainTable}.id = ${junctionTable}.${junctionData.firstTableField}`
+            const firstJunctionFunction: JoinFunction = (mainTable: string, junctionTable: string): string => `${mainTable}.id = ${junctionTable}.${junctionData.firstTableField}`;
 
-            const secondJunctionFunction: JoinFunction = (junctionTable: string, referencedTable: string): string => `${junctionTable}.${junctionData.secondTableField} = ${referencedTable}.id`
+            const secondJunctionFunction: JoinFunction = (junctionTable: string, referencedTable: string): string => `${junctionTable}.${junctionData.secondTableField} = ${referencedTable}.id`;
 
             if (newField.extensions) {
                 newField.extensions.joinMonster.junction = {
@@ -109,7 +109,7 @@ function buildModel(model: Class): GraphQLObjectType {
                             sqlJoins: [firstJunctionFunction, secondJunctionFunction]
                         }
                     }
-                }
+                };
             }
         }
 
@@ -135,7 +135,7 @@ function buildModel(model: Class): GraphQLObjectType {
                     description: value.description,
                     extensions: value.extensions,
                     type: optional ? <GraphQLOutputType>type : <GraphQLOutputType>GraphQLNonNull(type)
-                }
+                };
             });
 
             return finalFields;

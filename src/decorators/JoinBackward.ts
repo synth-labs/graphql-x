@@ -10,7 +10,7 @@ function JoinBackward(referencedField: string) {
         fields[key] = referencedField;
 
         Reflect.defineMetadata('graphQLJoinBackwards', fields, target.constructor);
-    }
+    };
 }
 
 export default JoinBackward;

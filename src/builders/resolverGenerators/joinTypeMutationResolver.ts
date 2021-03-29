@@ -64,7 +64,7 @@ function joinTypeMutationResolver(tableName: string, queryName: string, key: str
         }
 
         return null;
-    }
+    };
 }
 
 export default joinTypeMutationResolver;

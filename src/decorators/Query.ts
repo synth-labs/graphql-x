@@ -13,11 +13,11 @@ function Query(typeFunction: TypeFunction) {
         } else {
             queries[key] = {
                 type: typeFunction
-            }
+            };
         }
 
         Reflect.defineMetadata('graphQLQueryTypes', queries, target.constructor);
-    }
+    };
 }
 
 export default Query;

@@ -17,7 +17,7 @@ function Mutation(typeFunction: TypeFunction, mutationType: MutationType, tableN
         };
 
         Reflect.defineMetadata('graphQLMutations', mutations, target.constructor);
-    }
+    };
 }
 
 export default Mutation;

@@ -44,7 +44,7 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
         const fullWhere = [where1, where2].filter((f: string): boolean => f.length > 0).join(' AND ');
 
         return fullWhere;
-    }
+    };
 }
 
 export default buildWhere;

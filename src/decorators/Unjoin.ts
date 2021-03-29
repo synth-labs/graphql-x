@@ -13,10 +13,10 @@ function Unjoin(field1: string, argument1: string, field2: string, argument2: st
             argument1,
             field2,
             argument2
-        }
+        };
 
         Reflect.defineMetadata('graphQLUnjoinData', fields, target.constructor);
-    }
+    };
 }
 
 export default Unjoin;
