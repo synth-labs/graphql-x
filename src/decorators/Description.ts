@@ -10,7 +10,7 @@ function Description(description: string) {
         fields[key] = description;
 
         Reflect.defineMetadata('graphQLDescriptions', fields, target.constructor);
-    }
+    };
 }
 
 export default Description;

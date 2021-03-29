@@ -10,7 +10,7 @@ function JoinForward(referencingField: string) {
         fields[key] = referencingField;
 
         Reflect.defineMetadata('graphQLJoinForwards', fields, target.constructor);
-    }
+    };
 }
 
 export default JoinForward;

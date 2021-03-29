@@ -14,7 +14,7 @@ function Junction(junctionTable: string, firstTableField: string, secondTableFie
         };
 
         Reflect.defineMetadata('graphQLJunctions', fields, target.constructor);
-    }
+    };
 }
 
 export default Junction;

@@ -27,7 +27,7 @@ function transformResolveInfo(queryRoot: GraphQLObjectType, resolveInfo: any, qu
 
     selection.name = {
         value: queryName
-    }
+    };
 
     operation.selectionSet.selections = [selection];
     newInfo.operation = operation;
@@ -39,7 +39,7 @@ function transformResolveInfo(queryRoot: GraphQLObjectType, resolveInfo: any, qu
         kind: 'Argument',
         name: { kind: 'Name', value: v[0] },
         value: { kind: 'IntValue', value: `${<string>v[1]}` }
-    }))
+    }));
 
 
     newInfo.fieldNodes = [fieldNode];

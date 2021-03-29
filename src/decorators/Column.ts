@@ -10,7 +10,7 @@ function Column(columnName: string) {
         fields[key] = columnName;
 
         Reflect.defineMetadata('graphQLColumns', fields, target.constructor);
-    }
+    };
 }
 
 export default Column;

@@ -13,18 +13,18 @@ function Arg(typeFunction: TypeFunction, argName: string, description?: string, 
             args[key][argName] = {
                 type: optional ? typeFunction() : GraphQLNonNull(typeFunction()),
                 description
-            }
+            };
         } else {
             args[key] = {
                 [argName]: {
                     type: optional ? typeFunction() : GraphQLNonNull(typeFunction()),
                     description
                 }
-            }
+            };
         }
 
         Reflect.defineMetadata('graphQLArgs', args, target.constructor);
-    }
+    };
 }
 
 export default Arg;

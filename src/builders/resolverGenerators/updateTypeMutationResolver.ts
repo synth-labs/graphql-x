@@ -55,7 +55,7 @@ function updateTypeMutationResolver(tableName: string, queryName: string, queryR
         }
 
         return null;
-    }
+    };
 }
 
 export default updateTypeMutationResolver;

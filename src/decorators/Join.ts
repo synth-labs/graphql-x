@@ -13,10 +13,10 @@ function Join(field1: string, argument1: string, field2: string, argument2: stri
             argument1,
             field2,
             argument2
-        }
+        };
 
         Reflect.defineMetadata('graphQLJoinData', fields, target.constructor);
-    }
+    };
 }
 
 export default Join;

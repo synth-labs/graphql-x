@@ -38,7 +38,7 @@ function buildInput(model: Class): GraphQLInputObjectType {
                 finalFields[key] = {
                     description: desc,
                     type: optional ? <GraphQLInputType>type : <GraphQLInputType>GraphQLNonNull(type)
-                }
+                };
             });
 
             return finalFields;

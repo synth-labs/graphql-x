@@ -53,7 +53,7 @@ function buildMutation(mutation: Class, queryRoot: GraphQLObjectType, prisma: Pr
             type: <GraphQLObjectType>value.type(),
             args: args[key],
             resolve: res
-        }
+        };
 
         resolvers[key] = resolver;
     });

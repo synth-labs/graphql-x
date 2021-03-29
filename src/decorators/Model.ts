@@ -8,10 +8,10 @@ function Model(databaseName: string, tableName: string, uniqueKey = 'id') {
         const data: TableInfo = {
             sqlTable: `\`${databaseName}\`.\`${tableName}\``,
             uniqueKey,
-        }
+        };
 
         Reflect.defineMetadata('graphQLTable', data, target);
-    }
+    };
 }
 
 export default Model;

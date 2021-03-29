@@ -43,7 +43,7 @@ function buildQuery(resolver: Class): ResolverTypeMap {
                     where: buildWhere(wheres[key])
                 }
             }
-        }
+        };
 
         if (args !== undefined && key in args) {
             res.args = args[key];
