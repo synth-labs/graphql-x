@@ -62,7 +62,7 @@ function buildModel(model: Class): GraphQLObjectType {
         }
 
         if (joinForwards[key]) {
-            const joinFunction: JoinFunction = (mainTable: string, referencedTable: string): string => `${mainTable}.${joinForwards[key]} = ${referencedTable}.id`;
+            const joinFunction: JoinFunction = (mainTable: string, referencedTable: string): string => `${mainTable}.\`${joinForwards[key]}\` = ${referencedTable}.\`id\``;
 
             if (newField.extensions) {
                 newField.extensions.joinMonster.sqlJoin = joinFunction;
@@ -76,7 +76,7 @@ function buildModel(model: Class): GraphQLObjectType {
         }
 
         if (joinBackwards[key]) {
-            const joinFunction: JoinFunction = (mainTable: string, referencedTable: string): string => `${referencedTable}.${joinBackwards[key]} = ${mainTable}.id`;
+            const joinFunction: JoinFunction = (mainTable: string, referencedTable: string): string => `${referencedTable}.\`${joinBackwards[key]}\` = ${mainTable}.\`id\``;
 
             if (newField.extensions) {
                 newField.extensions.joinMonster.sqlJoin = joinFunction;
@@ -92,20 +92,20 @@ function buildModel(model: Class): GraphQLObjectType {
         if (junctions[key]) {
             const junctionData = junctions[key];
 
-            const firstJunctionFunction: JoinFunction = (mainTable: string, junctionTable: string): string => `${mainTable}.id = ${junctionTable}.${junctionData.firstTableField}`;
+            const firstJunctionFunction: JoinFunction = (mainTable: string, junctionTable: string): string => `${mainTable}.\`id\` = ${junctionTable}.\`${junctionData.firstTableField}\``;
 
-            const secondJunctionFunction: JoinFunction = (junctionTable: string, referencedTable: string): string => `${junctionTable}.${junctionData.secondTableField} = ${referencedTable}.id`;
+            const secondJunctionFunction: JoinFunction = (junctionTable: string, referencedTable: string): string => `${junctionTable}.\`${junctionData.secondTableField}\` = ${referencedTable}.\`id\``;
 
             if (newField.extensions) {
                 newField.extensions.joinMonster.junction = {
-                    sqlTable: junctionData.junctionTable,
+                    sqlTable: `${database.sqlDatabase}.\`${junctionData.junctionTable}\``,
                     sqlJoins: [firstJunctionFunction, secondJunctionFunction]
                 };
             } else {
                 newField.extensions = {
                     joinMonster: {
                         junction: {
-                            sqlTable: junctionData.junctionTable,
+                            sqlTable: `${database.sqlDatabase}.\`${junctionData.junctionTable}\``,
                             sqlJoins: [firstJunctionFunction, secondJunctionFunction]
                         }
                     }
