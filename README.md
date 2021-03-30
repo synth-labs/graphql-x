@@ -18,11 +18,11 @@ Linting the files:
 npm run lint
 ```
 
-## Requirements
+## Config
 
 A `.env` file is required, containing the following variables:
 
-```graphql
+```env
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=db_user
@@ -30,6 +30,12 @@ DB_PASS=db_password
 ```
 
 (The provided values are just examples.)
+
+If the `QUERY_DEBUG` variable is set to `true` then the generated SQL queries are printed to the console when the resolver is called:
+
+```env
+QUERY_DEBUG=true
+```
 
 ## Examples
 

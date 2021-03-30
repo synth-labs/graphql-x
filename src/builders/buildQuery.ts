@@ -31,6 +31,10 @@ function buildQuery(resolver: Class): ResolverTypeMap {
                 resolveInfo,
                 {},
                 async (sql: string) => {
+                    if (process.env.QUERY_DEBUG === 'true') {
+                        console.log(`${sql}\n`);
+                    }
+
                     const result = await connection.execute(sql);
                     return result[0];
                 },
