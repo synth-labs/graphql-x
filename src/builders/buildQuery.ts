@@ -37,16 +37,19 @@ function buildQuery(resolver: Class): ResolverTypeMap {
                 {
                     dialect: "mysql8",
                 },
-            ),
-            extensions: {
-                joinMonster: {
-                    where: buildWhere(wheres[key])
-                }
-            }
+            )
         };
 
         if (args !== undefined && key in args) {
             res.args = args[key];
+        }
+
+        if (wheres !== undefined && key in wheres) {
+            res.extensions = {
+                joinMonster: {
+                    where: buildWhere(wheres[key])
+                }
+            };
         }
 
         resolvers[key] = res;
