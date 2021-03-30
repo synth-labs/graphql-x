@@ -1,6 +1,7 @@
 interface TableInfo {
-    sqlTable: string,
-    uniqueKey: string,
+    sqlDatabase: string;
+    sqlTable: string;
+    uniqueKey: string;
 }
 
 export default TableInfo;
