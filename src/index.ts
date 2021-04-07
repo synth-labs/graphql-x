@@ -23,6 +23,7 @@ import buildQuery from './builders/buildQuery';
 
 // Types
 import TypeFunction from './types/TypeFunction';
+import ResolverFunction from './types/ResolverFunction';
 import FilterInfo from './types/FilterInfo';
 import MutationType from './types/MutationType';
 import ResolverGroup from './types/ResolverGroup';
@@ -53,6 +54,7 @@ export {
 
     // Types
     TypeFunction,
+    ResolverFunction,
     FilterInfo,
     MutationType,
     ResolverGroup

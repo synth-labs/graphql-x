@@ -43,8 +43,15 @@ function buildMutation(mutation: Class, queryRoot: GraphQLObjectType, prisma: Pr
             case 'unjoin':
                 res = unjoinTypeMutationResolver(value.tableName, value.queryName, key, queryRoot, prisma, mutation);
                 break;
+            case 'custom':
+                if (!('resolver' in value)) {
+                    throw new Error('Resolver function must be provided in custom type resolvers.');
+                }
+
+                res = <ResolverFunction>value.resolver;
+                break;
             default:
-                res = () => null; // temporary
+                res = () => null; // in fact, there is no such case, every mutation type is covered above
         }
 
         const args: ArgMap = <ArgMap>Reflect.getMetadata('graphQLArgs', mutation) || {};
