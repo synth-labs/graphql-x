@@ -28,6 +28,9 @@ import FilterInfo from './types/FilterInfo';
 import MutationType from './types/MutationType';
 import ResolverGroup from './types/ResolverGroup';
 
+// etc
+import transformResolveInfo from './builders/transformResolveInfo';
+
 export {
     // Decorators
     Arg,
@@ -57,5 +60,8 @@ export {
     ResolverFunction,
     FilterInfo,
     MutationType,
-    ResolverGroup
+    ResolverGroup,
+
+    // etc
+    transformResolveInfo
 };
