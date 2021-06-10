@@ -37,6 +37,20 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
                 return ``;
 
             }
+            if (f.operator === 'LIKE') {
+                let wildcarded;
+                if (typeof args[f.argName] === 'string') {
+                    const a: string = <string>args[f.argName];
+                    wildcarded = `%${a}%`;
+                } else {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    wildcarded = args[f.argName];
+                }
+
+                const escapedArg: string = escape(wildcarded);
+                return `${table}.\`${f.columnName}\` ${Operator[f.operator]} ${escapedArg}`;
+
+            }
             if (args[f.argName]) {
                 const escapedArg: string = escape(args[f.argName]);
                 return `${table}.\`${f.columnName}\` ${Operator[f.operator]} ${escapedArg}`;
