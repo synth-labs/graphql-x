@@ -27,7 +27,8 @@
     "join-monster": "^3.0.1",
     "lodash": "^4.17.21",
     "mysql2": "^2.2.5",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.1.13",
+    "sqlstring": "^2.3.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
@@ -35,6 +36,7 @@
     "@types/lodash": "^4.14.168",
     "@types/mocha": "^8.2.0",
     "@types/node": "^14.14.35",
+    "@types/sqlstring": "^2.3.0",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "chai": "^4.3.4",

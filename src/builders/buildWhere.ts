@@ -1,3 +1,5 @@
+import { escape } from 'sqlstring';
+
 import FilterInfo from '../types/FilterInfo';
 import FilterFunction from '../types/FilterFunction';
 import ComparatorObject from '../types/ComparatorObject';
