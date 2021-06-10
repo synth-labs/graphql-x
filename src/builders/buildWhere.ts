@@ -1,3 +1,5 @@
+import { escape } from 'sqlstring';
+
 import FilterInfo from '../types/FilterInfo';
 import FilterFunction from '../types/FilterFunction';
 import ComparatorObject from '../types/ComparatorObject';
@@ -11,6 +13,11 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
         const comparatorFilters: ComparatorObject[] = <ComparatorObject[]>filterInfos.filter((f: FilterInfo): boolean => typeof f !== 'function');
 
         const where1: string = comparatorFilters.map((f: ComparatorObject): string => {
+            // if the query argument referenced by the filter is undefined (e.g. because of being optional) then the filter is skipped
+            if (args[f.argName] === undefined) {
+                return '';
+            }
+
             if (f.operator === 'IS_NULL') {
                 // falsy értékeket nem kell figyelembe venni
                 if (args[f.argName] === true) {
@@ -20,7 +27,8 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
                 }
                 return ``;
 
-            } if (f.operator === 'IS_NOT_NULL') {
+            }
+            if (f.operator === 'IS_NOT_NULL') {
                 if (args[f.argName] === true) {
                     return `${table}.\`${f.columnName}\` IS NOT NULL`;
                 } if (args[f.argName] === false) {
