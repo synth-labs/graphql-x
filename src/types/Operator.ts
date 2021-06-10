@@ -6,7 +6,8 @@ enum Operator {
     LESS_THAN = '<',
     LESS_THAN_OR_EQUAL = '<=',
     IS_NULL = 'IS NULL',
-    IS_NOT_NULL = 'IS NOT NULL'
+    IS_NOT_NULL = 'IS NOT NULL',
+    LIKE = 'LIKE'
 }
 
 export default Operator;
