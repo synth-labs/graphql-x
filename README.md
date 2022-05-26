@@ -44,39 +44,32 @@ QUERY_DEBUG=true
 ```typescript
 import { GraphQLList, GraphQLString, GraphQLInt } from "graphql";
 
-import {
-  Model,
-  Field,
-  Description,
-  JoinBackward,
-  Junction,
-  buildModel,
-} from "@synthesis-labs/graphql-x";
+import { Model, Field, Description, JoinBackward, Junction, buildModel } from "@synthesis-labs/graphql-x";
 import { Author, _Author } from "./Author";
 import { BookChapter, _BookChapter } from "./BookChapter";
 
 @Model("products", "books")
 class _Book {
-  @Field((type) => GraphQLInt)
-  id!: number;
+    @Field(type => GraphQLInt)
+    id!: number;
 
-  @Field((type) => GraphQLString)
-  @Description("A könyv címe.")
-  title!: string;
+    @Field(type => GraphQLString)
+    @Description("A könyv címe.")
+    title!: string;
 
-  @Field((type) => GraphQLString, true)
-  @Description("A  könyv alcíme ha van, ellenben `null`.")
-  subtitle?: string;
+    @Field(type => GraphQLString, true)
+    @Description("A  könyv alcíme ha van, ellenben `null`.")
+    subtitle?: string;
 
-  @Field((type) => GraphQLList(Author))
-  @Description("A könyv szerzői.")
-  @Junction("book_authors", "book", "author")
-  authors!: _Author[];
+    @Field(type => GraphQLList(Author))
+    @Description("A könyv szerzői.")
+    @Junction("book_authors", "book", "author")
+    authors!: _Author[];
 
-  @Field((type) => GraphQLList(BookChapter))
-  @Description("A könyvben található fejezetek.")
-  @JoinBackward("book")
-  chapters!: _BookChapter[];
+    @Field(type => GraphQLList(BookChapter))
+    @Description("A könyvben található fejezetek.")
+    @JoinBackward("book")
+    chapters!: _BookChapter[];
 }
 
 const Book = buildModel(_Book);
@@ -97,24 +90,18 @@ Finally the `buildModel(...)` function creates the `GraphQLObjectType` from the 
 ```typescript
 import { GraphQLList, GraphQLInt } from "graphql";
 
-import {
-  Resolver,
-  Query,
-  Arg,
-  Filter,
-  buildQuery,
-} from "@synthesis-labs/graphql-x";
+import { Resolver, Query, Arg, Filter, buildQuery } from "@synthesis-labs/graphql-x";
 import { Book, _Book } from "../../Models/Books/Book";
 
 @Resolver("query")
 class BookQuery {
-  @Query((type) => GraphQLList(Book))
-  books!: () => _Book[];
+    @Query(type => GraphQLList(Book))
+    books!: () => _Book[];
 
-  @Query((type) => Book)
-  @Arg((type) => GraphQLInt, "id", "Az ID, amelyre szűrni szeretnénk.")
-  @Filter({ argName: "id", operator: "EQUAL", columnName: "id" })
-  book!: () => _Book;
+    @Query(type => Book)
+    @Arg(type => GraphQLInt, "id", "Az ID, amelyre szűrni szeretnénk.")
+    @Filter({ argName: "id", operator: "EQUAL", columnName: "id" })
+    book!: () => _Book;
 }
 
 const queries = buildQuery(BookQuery);
@@ -137,7 +124,11 @@ In this example the generated query is the following:
 book(id: Int!): Book
 ```
 
-The `@Filter` argument is used to tell the framework how the argument must be used. It specifies the relation between the value of the argument and the given SQL column.
+The `@Filter` decorator is used to tell the framework how the argument must be used. It specifies the relation between the value of the argument and the given SQL column. The `@Filter({ argName: "id", operator: "EQUAL", columnName: "id" })` example above means that in the SQL query, a WHERE statement is generated, roughly in the following form: `` WHERE `id` = args.id ``.
+
+The `@Filter` decorator also accepts a modifier function. Modifiers are MySQL functions, applied to the given column.
+
+E.g.: `@Filter({ argName: "year", operator: "EQUAL", columnName: "date", modifier: "DATE:YEAR" })` which means `` WHERE YEAR(`date`) = args.year ``
 
 ### Mutations
 
@@ -145,15 +136,7 @@ The `@Filter` argument is used to tell the framework how the argument must be us
 import { GraphQLInt, GraphQLList } from "graphql";
 import { PrismaClient } from "@prisma/client";
 
-import {
-  Resolver,
-  Arg,
-  Mutation,
-  CreateJoined,
-  buildMutation,
-  Join,
-  Unjoin,
-} from "@synthesis-labs/graphql-x";
+import { Resolver, Arg, Mutation, CreateJoined, buildMutation, Join, Unjoin } from "@synthesis-labs/graphql-x";
 
 import { Book, _Book } from "../../../Models/Books/Book";
 import { BookInputCreate } from "./BookInputCreate";
@@ -165,32 +148,32 @@ const productsDB = new PrismaClient();
 
 @Resolver("mutation")
 class BookMutation {
-  @Mutation((type) => Book, "create", "books", "book")
-  @CreateJoined("book_authors", "author")
-  @Arg((type) => GraphQLList(GraphQLInt), "authors", "A könyv szerzői.", true)
-  @Arg((type) => BookInputCreate, "book", "A létrehozandó könyv adatai.")
-  createBook!: _Book;
+    @Mutation(type => Book, "create", "books", "book")
+    @CreateJoined("book_authors", "author")
+    @Arg(type => GraphQLList(GraphQLInt), "authors", "A könyv szerzői.", true)
+    @Arg(type => BookInputCreate, "book", "A létrehozandó könyv adatai.")
+    createBook!: _Book;
 
-  @Mutation((type) => Book, "update", "books", "book")
-  @Arg((type) => BookInputUpdate, "book", "A könyv módosítandó adatai.")
-  @Arg((type) => GraphQLInt, "id", "A szerkesztendő könyv ID-ja.")
-  updateBook!: _Book;
+    @Mutation(type => Book, "update", "books", "book")
+    @Arg(type => BookInputUpdate, "book", "A könyv módosítandó adatai.")
+    @Arg(type => GraphQLInt, "id", "A szerkesztendő könyv ID-ja.")
+    updateBook!: _Book;
 
-  @Mutation((type) => GraphQLInt, "delete", "books")
-  @Arg((type) => GraphQLInt, "id", "A törlendő könyv ID-ja.")
-  deleteBook!: number;
+    @Mutation(type => GraphQLInt, "delete", "books")
+    @Arg(type => GraphQLInt, "id", "A törlendő könyv ID-ja.")
+    deleteBook!: number;
 
-  @Mutation((type) => Book, "join", "book_authors", "book")
-  @Join("book", "book", "author", "author")
-  @Arg((type) => GraphQLInt, "author", "A szerző ID-ja.")
-  @Arg((type) => GraphQLInt, "book", "A könyv ID-ja.")
-  joinBookToAuthor!: _Book;
+    @Mutation(type => Book, "join", "book_authors", "book")
+    @Join("book", "book", "author", "author")
+    @Arg(type => GraphQLInt, "author", "A szerző ID-ja.")
+    @Arg(type => GraphQLInt, "book", "A könyv ID-ja.")
+    joinBookToAuthor!: _Book;
 
-  @Mutation((type) => Book, "unjoin", "book_authors", "book")
-  @Unjoin("book", "book", "author", "author")
-  @Arg((type) => GraphQLInt, "author", "A szerző ID-ja.")
-  @Arg((type) => GraphQLInt, "book", "A könyv ID-ja.")
-  unjoinBookFromAuthor!: _Book;
+    @Mutation(type => Book, "unjoin", "book_authors", "book")
+    @Unjoin("book", "book", "author", "author")
+    @Arg(type => GraphQLInt, "author", "A szerző ID-ja.")
+    @Arg(type => GraphQLInt, "book", "A könyv ID-ja.")
+    unjoinBookFromAuthor!: _Book;
 }
 
 const mutations = buildMutation(BookMutation, QueryRoot, productsDB);
@@ -210,8 +193,8 @@ Comming soon....
 
 ## TODO
 
-- write tests
-- write documentation
-- typeguards
-- better error handling
-- enhance resolver generation features
+-   write tests
+-   write documentation
+-   typeguards
+-   better error handling
+-   enhance resolver generation features
