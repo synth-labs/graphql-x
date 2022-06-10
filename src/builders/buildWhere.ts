@@ -65,7 +65,7 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
                         // eslint-disable-next-line eqeqeq
                         const filtered = parsedElements.filter(element => parseInt(element, 10) == element);
                         if (parsedElements.length !== filtered.length) {
-                            throw new Error(`The ${f.argName} array can contain only integers. Received: ${parsedElements.toString()}`);
+                            throw new Error(`The ${f.argName} array can contain only integers. Received: ${(args[f.argName] as Array<any>).toString()}`);
                         }
                     }
 
