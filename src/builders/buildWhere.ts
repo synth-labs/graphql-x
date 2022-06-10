@@ -69,7 +69,7 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
                         }
                     }
 
-                    const stringifiedArgs: string = JSON.stringify(parsedElements);
+                    const stringifiedArgs: string = `(${parsedElements.toString()})`;
                     return f.modifier ? `${parseModifier(f.modifier)}(${table}.\`${f.columnName}\`) ${Operator[f.operator]} ${stringifiedArgs}` : `${table}.\`${f.columnName}\` ${Operator[f.operator]} ${stringifiedArgs}`;
                 }
                 if (args[f.argName]) {
