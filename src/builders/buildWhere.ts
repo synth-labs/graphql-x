@@ -58,14 +58,14 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
                 }
                 if (f.operator === "IN" || f.operator === "NOT_IN") {
                     let parsedElements: any[];
-                    if (!isArray(args[f.argName])) {
-                        throw new Error(`The ${f.argName} argument must be an array due to the IN operator.`);
+                    if (!isArray(args[f.argName]) || (args[f.argName] as Array<any>).length === 0) {
+                        throw new Error(`The ${f.argName} argument must be a non-empty array due to the IN operator.`);
                     } else {
                         parsedElements = (args[f.argName] as any[]).map(element => parseInt(element, 10));
                         // eslint-disable-next-line eqeqeq
                         const filtered = parsedElements.filter(element => parseInt(element, 10) == element);
                         if (parsedElements.length !== filtered.length) {
-                            throw new Error(`The ${f.argName} array can contain only integers.`);
+                            throw new Error(`The ${f.argName} array can contain only integers. Received: ${parsedElements.toString()}`);
                         }
                     }
 
