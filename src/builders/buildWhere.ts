@@ -1,4 +1,5 @@
 import { escape } from "sqlstring";
+import { isArray } from "lodash";
 
 import FilterInfo from "../types/FilterInfo";
 import FilterFunction from "../types/FilterFunction";
@@ -54,6 +55,22 @@ function buildWhere(filterInfos?: FilterInfo[]): FilterFunction | undefined {
 
                     const escapedArg: string = escape(wildcarded);
                     return f.modifier ? `${parseModifier(f.modifier)}(${table}.\`${f.columnName}\`) ${Operator[f.operator]} ${escapedArg}` : `${table}.\`${f.columnName}\` ${Operator[f.operator]} ${escapedArg}`;
+                }
+                if (f.operator === "IN" || f.operator === "NOT_IN") {
+                    let parsedElements: any[];
+                    if (!isArray(args[f.argName])) {
+                        throw new Error(`The ${f.argName} argument must be an array due to the IN operator.`);
+                    } else {
+                        parsedElements = (args[f.argName] as any[]).map(element => parseInt(element, 10));
+                        // eslint-disable-next-line eqeqeq
+                        const filtered = parsedElements.filter(element => parseInt(element, 10) == element);
+                        if (parsedElements.length !== filtered.length) {
+                            throw new Error(`The ${f.argName} array can contain only integers.`);
+                        }
+                    }
+
+                    const stringifiedArgs: string = JSON.stringify(parsedElements);
+                    return f.modifier ? `${parseModifier(f.modifier)}(${table}.\`${f.columnName}\`) ${Operator[f.operator]} ${stringifiedArgs}` : `${table}.\`${f.columnName}\` ${Operator[f.operator]} ${stringifiedArgs}`;
                 }
                 if (args[f.argName]) {
                     const escapedArg: string = escape(args[f.argName]);
